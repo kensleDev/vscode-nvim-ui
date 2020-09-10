@@ -11,7 +11,6 @@ function getConfiguration(section = '') {
 	return vscode.workspace.getConfiguration(section, resource);
 }
 
-
 function changeColor(workbenchConfig, color) {
 
 	const currentColorCustomizations = workbenchConfig.get('colorCustomizations') || {};
@@ -37,6 +36,29 @@ function changeColor(workbenchConfig, color) {
     }
 }
 
+function getTheme(workbenchConfig, mode) {
+
+	let theme
+
+	if (mode === 'normal') theme = workbenchConfig.get('nvimThemeNormal')
+	if (mode === 'insert') theme = workbenchConfig.get('nvimThemeInsert')
+	if (mode === 'visual') theme = workbenchConfig.get('nvimThemeVisual')
+	if (mode === 'replace') theme = workbenchConfig.get('nvimThemeReplace')
+
+	if (!theme) {
+		// Give up and return current theme
+		
+		theme = workbenchConfig.get('colorTheme');
+	}
+	return theme;
+}
+
+function setTheme(workbenchConfig, mode) {
+	const currentTheme = getTheme(mode)
+	workbenchConfig.update('colorTheme', currentTheme, vscode.ConfigurationTarget.Global)
+}
+
+
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -44,18 +66,28 @@ function activate(context) {
 
 	const workbenchConfig = getConfiguration('workbench');
 
+	const operationMode = workbenchConfig.get('nvimUiMode')
+
 	const cmds = [
-		vscode.commands.registerCommand('nvim-theme-switcher.normal', function () {
-			changeColor(workbenchConfig, workbenchConfig.get('nvimColorNormal'))
+		vscode.commands.registerCommand('nvim-theme.normal', function () {
+			operationMode === 'color' 
+				? changeColor(workbenchConfig, workbenchConfig.get('nvimColorNormal'))
+				: setTheme('normal')
 		}),
-		vscode.commands.registerCommand('nvim-theme-switcher.insert', function () {
-			changeColor(workbenchConfig, workbenchConfig.get('nvimColorInsert'))
+		vscode.commands.registerCommand('nvim-theme.insert', function () {
+			operationMode === 'color' 
+				? changeColor(workbenchConfig, workbenchConfig.get('nvimColorInsert'))
+				: setTheme('insert')
 		}),
-		vscode.commands.registerCommand('nvim-theme-switcher.visual', function () {
-			changeColor(workbenchConfig, workbenchConfig.get('nvimColorVisual'))
+		vscode.commands.registerCommand('nvim-theme.visual', function () {
+			operationMode === 'color' 
+				? changeColor(workbenchConfig, workbenchConfig.get('nvimColorVisual'))
+				: setTheme('visual')
 		}),
-		vscode.commands.registerCommand('nvim-theme-switcher.replace', function () {
-			changeColor(workbenchConfig, workbenchConfig.get('nvimColorReplace'))
+		vscode.commands.registerCommand('nvim-theme.replace', function () {
+			operationMode === 'color' 
+				? changeColor(workbenchConfig, workbenchConfig.get('nvimColorReplace'))
+				: setTheme('replace')
 		})
 	]
 	// The command has been defined in the package.json file

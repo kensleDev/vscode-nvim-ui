@@ -1,7 +1,7 @@
 {
-  "name": "nvim-theme-modifier",
-  "displayName": "nvim-theme-modifier",
-  "description": "swap color of ui based on nvim mode ",
+  "name": "nvim-ui-modifier",
+  "displayName": "nvim-ui-modifier",
+  "description": "Change Theme or accent colors of UI by changing NVim modes",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.48.0"
@@ -10,28 +10,28 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:nvim-theme-switcher.normal",
-    "onCommand:nvim-theme-switcher.insert",
-    "onCommand:nvim-theme-switcher.visual",
-    "onCommand:nvim-theme-switcher.replace"
+    "onCommand:nvim-theme.normal",
+    "onCommand:nvim-theme.insert",
+    "onCommand:nvim-theme.visual",
+    "onCommand:nvim-theme.replace"
   ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "nvim-theme-switcher.normal",
+        "command": "nvim-theme.normal",
         "title": "NVIM Normal"
       },
       {
-        "command": "nvim-theme-switcher.insert",
+        "command": "nvim-theme.insert",
         "title": "NVIM Insert"
       },
       {
-        "command": "nvim-theme-switcher.visual",
+        "command": "nvim-theme.visual",
         "title": "NVIM Visual"
       },
       {
-        "command": "nvim-theme-switcher.replace",
+        "command": "nvim-theme.replace",
         "title": "NVIM Replace"
       }
     ]

@@ -1,65 +1,107 @@
-# nvim-theme-modifier README
+# nvim-theme-modifier
 
-This is the README for your extension "nvim-theme-modifier". After writing up a brief description, we recommend including the following sections.
+Automatically changes themes based on the currrent Neo Vim mode.
+
+I like how with VSCode Vim you could change the status bar based on the current mode so this is an attempt to recreate that for NeoVim.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+There are 2 Modes: 
 
-For example if there is an image subfolder under your extension project workspace:
+- Theme mode: Change whole theme on mode change
+- Color mode: Change UI accent colors
 
-\!\[feature X\]\(images/feature-x.png\)
+When swapping the whole theme it has the desired effect it can be a bit much on the eyes. This is why I prefer color mode as its much more subtle but if you want more fine grained control you can make variations of the same theme as I have done [HERE](LINk) for Wes Bos's [Colbalt2](https://github.com/wesbos/cobalt2-vscode)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+
+** WARNING: When using color mode it will add / override the following keys in settings.josn - workbench.colorCustomizations:
+
+```
+"workbench.colorCustomizations": {
+    "activityBarBadge.background": "#ffc600",
+    "editorCursor.foreground": "#ffc600",
+    "inputValidation.errorBorder": "#ffc600",
+    "panel.border": "#ffc600",
+    "panelTitle.activeBorder": "#ffc600",
+    "panelTitle.activeForeground": "#ffc600",
+    "peekView.border": "#ffc600",
+    "peekViewTitleLabel.foreground": "#ffc600",
+    "tab.activeBorder": "#ffc600",
+    "statusBar.border": "#ffc600"
+}
+```
+
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+[Neovim + Vscode Extension](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) - follow full setup before continuing 
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+#### In settings.json:
 
-For example:
+```
+    "workbench.nvimUiMode": "color|theme",
 
-This extension contributes the following settings:
+    // Color Mode
+    "workbench.nvimColorNormal": "#ffc600",
+    "workbench.nvimColorInsert": "#D32F2F",
+    "workbench.nvimColorVisual": "#673AB7",
+    "workbench.nvimColorReplace": "#C2185B"
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+    // Theme Mode
+    "workbench.nvimThemeNormal": "Cobalt2",
+    "workbench.nvimThemeInsert": "Cobalt2-Insert",
+    "workbench.nvimThemeVisual": "Cobalt2-Visual",
+    "workbench.nvimThemeReplace": "Cobalt2-Replace",
+
+```
+
+#### In Vscode Vimrc:
+
+```
+" THEME CHANGER
+
+function! SetCursorLineNrColorInsert(mode)
+    " Insert mode: blue
+    if a:mode == "i"
+        call VSCodeNotify('nvim-theme.insert')
+
+    " Replace mode: red
+    elseif a:mode == "r"
+        call VSCodeNotify('nvim-theme.replace')
+    endif
+endfunction
+
+
+function! SetCursorLineNrColorVisual()
+    set updatetime=0
+    call VSCodeNotify('nvim-theme.visual')
+endfunction
+
+
+vnoremap <silent> <expr> <SID>SetCursorLineNrColorVisual SetCursorLineNrColorVisual()
+nnoremap <silent> <script> v v<SID>SetCursorLineNrColorVisual
+nnoremap <silent> <script> V V<SID>SetCursorLineNrColorVisual
+nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorLineNrColorVisual
+
+augroup CursorLineNrColorSwap
+    autocmd!
+    autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
+    autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
+    autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
+augroup END
+```
+
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+When using Theme mode - Fonts change when swapping themes - happens very quickly but I use [Victor Mono](https://rubjo.github.io/victor-mono/) - with ligitures and they flash on and off. Dont think this can be avioded.
 
-## Release Notes
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+## TODO
+- lock file
+- zenvsc
+- seach mode
 
 -----------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
