@@ -1,4 +1,4 @@
-# nvim-theme-modifier
+# NVim Ui
 
 Automatically changes themes based on the currrent Neo Vim mode.
 
@@ -79,11 +79,21 @@ function! SetCursorLineNrColorVisual()
     call VSCodeNotify('nvim-theme.visual')
 endfunction
 
-
 vnoremap <silent> <expr> <SID>SetCursorLineNrColorVisual SetCursorLineNrColorVisual()
 nnoremap <silent> <script> v v<SID>SetCursorLineNrColorVisual
 nnoremap <silent> <script> V V<SID>SetCursorLineNrColorVisual
 nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorLineNrColorVisual
+
+function! SetCursorLineNrColorSearch()
+    set updatetime=0
+    call VSCodeNotify('nvim-theme.search')
+endfunction
+
+vnoremap <silent> <expr> <SID>SetCursorLineNrColorSearch SetCursorLineNrColorSearch()
+nnoremap <silent> <script> v v<SID>SetCursorLineNrColorSearch
+nnoremap <silent> <script> V V<SID>SetCursorLineNrColorSearch
+nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorLineNrColorSearch
+
 
 augroup CursorLineNrColorSwap
     autocmd!
