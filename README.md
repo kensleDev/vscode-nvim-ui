@@ -110,8 +110,6 @@ When using Theme mode - Fonts change when swapping themes - happens very quickly
 
 
 ## TODO
-- lock file
-- zenvsc
-- seach mode
+- search mode
 
 -----------------------------------------------------------------------------------------------------------
