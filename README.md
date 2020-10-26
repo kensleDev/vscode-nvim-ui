@@ -1,19 +1,10 @@
-# NVim Ui
+# NVim Theme Modifier
 
-Automatically changes themes based on the currrent Neo Vim mode.
-
-I like how with VSCode Vim you could change the status bar based on the current mode so this is an attempt to recreate that for NeoVim.
+Changes theme accents based on current NeoVim mode.
 
 ## Features
 
-There are 2 Modes:
-
-- Theme mode: Change whole theme on mode change
-- Color mode: Change UI accent colors
-
-When swapping the whole theme it has the desired effect it can be a bit much on the eyes. This is why I prefer color mode as its much more subtle but if you want more fine grained control you can make variations of the same theme as I have done [HERE](LINk) for Wes Bos's [Colbalt2](https://github.com/wesbos/cobalt2-vscode)
-
-\*\* WARNING: When using color mode it will add / override the following keys in settings.josn - workbench.colorCustomizations:
+\*\* WARNING: The plugin will add / override the following keys in settings.json - workbench.colorCustomizations:
 
 ```
 "workbench.colorCustomizations": {
@@ -39,27 +30,16 @@ When swapping the whole theme it has the desired effect it can be a bit much on 
 #### In settings.json:
 
 ```
-    "workbench.nvimUiMode": "color|theme",
-
-    // Color Mode
     "workbench.nvimColorNormal": "#ffc600",
     "workbench.nvimColorInsert": "#D32F2F",
     "workbench.nvimColorVisual": "#673AB7",
     "workbench.nvimColorReplace": "#C2185B"
-
-    // Theme Mode
-    "workbench.nvimThemeNormal": "Cobalt2",
-    "workbench.nvimThemeInsert": "Cobalt2-Insert",
-    "workbench.nvimThemeVisual": "Cobalt2-Visual",
-    "workbench.nvimThemeReplace": "Cobalt2-Replace",
-
 ```
 
 #### In Vscode Vimrc:
 
 ```
 " THEME CHANGER
-
 
 " THEME CHANGER
 function! SetCursorLineNrColorInsert(mode)
@@ -106,7 +86,7 @@ augroup END
 
 ## Known Issues
 
-- visual mode puts the cursor to the start of the line. Negligable as following command is almost always to move the cursor
+- Visual mode puts the cursor to the start of the line. Negligable as following command is almost always to move the cursor
 
 ## TODO
 
