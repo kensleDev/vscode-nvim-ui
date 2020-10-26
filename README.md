@@ -2,7 +2,19 @@
 
 Changes theme accents based on current NeoVim mode.
 
-## Features
+Currently works for the following modes:
+
+- Normal
+- Insert
+- Visual
+
+Set the color for each mode to match your theme in settings.json (see below)
+
+# Requirements
+
+You will need the NeoVim VScode extension installed for this to work - [Neovim Extension](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) - follow full setup before continuing
+
+# Config
 
 \*\* WARNING: The plugin will add / override the following keys in settings.json - workbench.colorCustomizations:
 
@@ -21,22 +33,21 @@ Changes theme accents based on current NeoVim mode.
 }
 ```
 
-## Requirements
+### In settings.json:
 
-[Neovim + Vscode Extension](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) - follow full setup before continuing
-
-## Extension Settings
-
-#### In settings.json:
+You can change the colors to match the theme you use:
 
 ```
     "workbench.nvimColorNormal": "#ffc600",
     "workbench.nvimColorInsert": "#D32F2F",
     "workbench.nvimColorVisual": "#673AB7",
-    "workbench.nvimColorReplace": "#C2185B"
 ```
 
-#### In Vscode Vimrc:
+### In Vscode Vimrc:
+
+This will need adding to you rvimrc, it tells neovim to send a command to vscode changing the color in a hacky way (can't find a better way, no AUTOCMDS for visual, replace etc,,,)
+
+Make sure to restart VSCode after adding this config
 
 ```
 " THEME CHANGER
@@ -84,12 +95,13 @@ augroup END
 
 ```
 
-## Known Issues
+# Known Issues
 
 - Visual mode puts the cursor to the start of the line. Negligable as following command is almost always to move the cursor
 
-## TODO
+# TODO
 
 - search mode
+- replace mode
 
 ---

@@ -2,8 +2,8 @@
   "name": "nvim-ui-modifier",
   "displayName": "nvim-ui-modifier",
   "description": "Change accent colors of UI by changing NVim modes",
-  "version": "0.0.2",
-  "publisher": "JuilanIaquinandi",
+  "version": "0.0.4",
+  "publisher": "JulianIaquinandi",
   "repository": {
     "url": "https://github.com/kensleDev/nvim-theme-modifier"
   },
