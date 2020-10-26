@@ -1,4 +1,4 @@
-# NVim Theme Modifier
+# NeoVim Ui Modifier
 
 Changes theme accents based on current NeoVim mode.
 
@@ -11,6 +11,8 @@ Currently works for the following modes:
 - Visual
 
 Set the color for each mode to match your theme in settings.json (see below)
+
+Also see the [Blog Article](https://dev.to/julian_e_yak_win_andi/vscode-neovim-theme-modifier-51gg)
 
 # Requirements
 
