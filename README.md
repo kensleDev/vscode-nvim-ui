@@ -106,7 +106,7 @@ augroup END
 
 ## Known Issues
 
-When using Theme mode - Fonts change when swapping themes - happens very quickly but I use [Victor Mono](https://rubjo.github.io/victor-mono/) - with ligitures and they flash on and off. Dont think this can be avioded.
+- visual mode puts the cursor to the start of the line. Negligable as following command is almost always to move the cursor
 
 ## TODO
 
