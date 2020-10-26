@@ -2,6 +2,8 @@
 
 Changes theme accents based on current NeoVim mode.
 
+![Alt Text](assets/nvim4.gif)
+
 Currently works for the following modes:
 
 - Normal
