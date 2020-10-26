@@ -2,7 +2,7 @@
   "name": "nvim-ui-modifier",
   "displayName": "nvim-ui-modifier",
   "description": "Change Theme or accent colors of UI by changing NVim modes",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "JuilanIaquinandi",
   "repository": {
     "url": "https://github.com/kensleDev/nvim-theme-modifier"
@@ -43,7 +43,8 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "yarn run lint",
-    "test": "node ./test/runTest.js"
+    "test": "node ./test/runTest.js",
+    "release": "npx vsce package"
   },
   "devDependencies": {
     "@types/vscode": "^1.48.0",

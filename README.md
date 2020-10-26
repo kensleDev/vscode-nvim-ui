@@ -6,15 +6,14 @@ I like how with VSCode Vim you could change the status bar based on the current 
 
 ## Features
 
-There are 2 Modes: 
+There are 2 Modes:
 
 - Theme mode: Change whole theme on mode change
 - Color mode: Change UI accent colors
 
 When swapping the whole theme it has the desired effect it can be a bit much on the eyes. This is why I prefer color mode as its much more subtle but if you want more fine grained control you can make variations of the same theme as I have done [HERE](LINk) for Wes Bos's [Colbalt2](https://github.com/wesbos/cobalt2-vscode)
 
-
-** WARNING: When using color mode it will add / override the following keys in settings.josn - workbench.colorCustomizations:
+\*\* WARNING: When using color mode it will add / override the following keys in settings.josn - workbench.colorCustomizations:
 
 ```
 "workbench.colorCustomizations": {
@@ -31,10 +30,9 @@ When swapping the whole theme it has the desired effect it can be a bit much on 
 }
 ```
 
-
 ## Requirements
 
-[Neovim + Vscode Extension](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) - follow full setup before continuing 
+[Neovim + Vscode Extension](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) - follow full setup before continuing
 
 ## Extension Settings
 
@@ -62,6 +60,8 @@ When swapping the whole theme it has the desired effect it can be a bit much on 
 ```
 " THEME CHANGER
 
+
+" THEME CHANGER
 function! SetCursorLineNrColorInsert(mode)
     " Insert mode: blue
     if a:mode == "i"
@@ -84,15 +84,15 @@ nnoremap <silent> <script> v v<SID>SetCursorLineNrColorVisual
 nnoremap <silent> <script> V V<SID>SetCursorLineNrColorVisual
 nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorLineNrColorVisual
 
-function! SetCursorLineNrColorSearch()
+function! SetCursorLineNrColorVisual()
     set updatetime=0
-    call VSCodeNotify('nvim-theme.search')
+    call VSCodeNotify('nvim-theme.visual')
 endfunction
 
-vnoremap <silent> <expr> <SID>SetCursorLineNrColorSearch SetCursorLineNrColorSearch()
-nnoremap <silent> <script> v v<SID>SetCursorLineNrColorSearch
-nnoremap <silent> <script> V V<SID>SetCursorLineNrColorSearch
-nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorLineNrColorSearch
+vnoremap <silent> <expr> <SID>SetCursorLineNrColorVisual SetCursorLineNrColorVisual()
+nnoremap <silent> <script> v v<SID>SetCursorLineNrColorVisual
+nnoremap <silent> <script> V V<SID>SetCursorLineNrColorVisual
+nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorLineNrColorVisual
 
 
 augroup CursorLineNrColorSwap
@@ -101,15 +101,15 @@ augroup CursorLineNrColorSwap
     autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
     autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
 augroup END
-```
 
+```
 
 ## Known Issues
 
 When using Theme mode - Fonts change when swapping themes - happens very quickly but I use [Victor Mono](https://rubjo.github.io/victor-mono/) - with ligitures and they flash on and off. Dont think this can be avioded.
 
-
 ## TODO
+
 - search mode
 
------------------------------------------------------------------------------------------------------------
+---
