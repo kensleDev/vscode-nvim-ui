@@ -77,11 +77,6 @@ augroup CursorLineNrColorSwap
 augroup END
 
 ```
-
-# Known Issues
-
-- Visual mode puts the cursor to the start of the line. Negligable as following command is almost always to move the cursor
-
 # TODO
 
 - search mode
