@@ -11,27 +11,32 @@ function getConfiguration(section = "") {
   return vscode.workspace.getConfiguration(section, resource);
 }
 
-function changeColor(workbenchConfig, color) {
-  const currentColorCustomizations = workbenchConfig.get("colorCustomizations") || {};
+function changeColor(extensionConfig, colorCustomizationKeys, currentColorCustomizations, color) {
   const colorCustomizations = { ...currentColorCustomizations };
 
-  const keys = [
-    "activityBarBadge.background",
-    "editorCursor.foreground",
-    "inputValidation.errorBorder",
-    "panel.border",
-    "panelTitle.activeBorder",
-    "panelTitle.activeForeground",
-    "peekView.border",
-    "peekViewTitleLabel.foreground",
-    "tab.activeBorder",
-    "statusBar.border",
-  ];
+  let keys;  
+  console.log(colorCustomizationKeys);
+  if (colorCustomizationKeys) {
+    keys = colorCustomizationKeys;   
+  } else {
+    keys = [
+      "activityBarBadge.background",
+      "editorCursor.foreground",
+      "inputValidation.errorBorder",
+      "panel.border",
+      "panelTitle.activeBorder",
+      "panelTitle.activeForeground",
+      "peekView.border",
+      "peekViewTitleLabel.foreground",
+      "tab.activeBorder",
+      "statusBar.border",
+    ];     
+  }
 
   keys.forEach((key) => (colorCustomizations[key] = color));
 
   if (currentColorCustomizations !== colorCustomizations) {
-    workbenchConfig.update("colorCustomizations", colorCustomizations, true);
+    extensionConfig.update("colorCustomizations", colorCustomizations, true);
   }
 }
 
@@ -39,22 +44,24 @@ function changeColor(workbenchConfig, color) {
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+  const extensionConfig = getConfiguration("nvim-ui");
   const workbenchConfig = getConfiguration("workbench");
-
+  const colorCustomizationKeys = extensionConfig.get("nvimColorCustomizationKeys") || null;
+  const currentColorCustomizations = workbenchConfig.get("colorCustomizations") || {}; 
   // const operationMode = workbenchConfig.get('nvimUiMode')
 
   const cmds = [
     vscode.commands.registerCommand("nvim-theme.normal", function () {
-      changeColor(workbenchConfig, workbenchConfig.get("nvimColorNormal"));
+      changeColor(workbenchConfig, colorCustomizationKeys, currentColorCustomizations, extensionConfig.get("nvimColorNormal"));
     }),
     vscode.commands.registerCommand("nvim-theme.insert", function () {
-      changeColor(workbenchConfig, workbenchConfig.get("nvimColorInsert"));
+      changeColor(workbenchConfig, colorCustomizationKeys, currentColorCustomizations, extensionConfig.get("nvimColorInsert"));
     }),
     vscode.commands.registerCommand("nvim-theme.visual", function () {
-      changeColor(workbenchConfig, workbenchConfig.get("nvimColorVisual"));
+      changeColor(workbenchConfig, colorCustomizationKeys, currentColorCustomizations, extensionConfig.get("nvimColorVisual"));
     }),
     vscode.commands.registerCommand("nvim-theme.replace", function () {
-      changeColor(workbenchConfig, workbenchConfig.get("nvimColorReplace"));
+      changeColor(workbenchConfig, colorCustomizationKeys, currentColorCustomizations, extensionConfig.get("nvimColorReplace"));
     }),
   ];
   // The command has been defined in the package.json file

@@ -45,17 +45,16 @@ You can change the colors to match the theme you use:
     "workbench.nvimColorNormal": "#ffc600",
     "workbench.nvimColorInsert": "#D32F2F",
     "workbench.nvimColorVisual": "#673AB7",
+    "workbench.nvimColorReplace": "#000"
 ```
 
 ### In Vscode Vimrc:
 
-This will need adding to you rvimrc, it tells neovim to send a command to vscode changing the color in a hacky way (can't find a better way, no AUTOCMDS for visual, replace etc,,,)
+This will need adding to you rvimrc, it tells neovim to send a command to vscode changing the color in a hacky way
 
 Make sure to restart VSCode after adding this config
 
 ```
-" THEME CHANGER
-
 " THEME CHANGER
 function! SetCursorLineNrColorInsert(mode)
     " Insert mode: blue
@@ -68,44 +67,18 @@ function! SetCursorLineNrColorInsert(mode)
     endif
 endfunction
 
-
-function! SetCursorLineNrColorVisual()
-    set updatetime=0
-    call VSCodeNotify('nvim-theme.visual')
-endfunction
-
-vnoremap <silent> <expr> <SID>SetCursorLineNrColorVisual SetCursorLineNrColorVisual()
-nnoremap <silent> <script> v v<SID>SetCursorLineNrColorVisual
-nnoremap <silent> <script> V V<SID>SetCursorLineNrColorVisual
-nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorLineNrColorVisual
-
-function! SetCursorLineNrColorVisual()
-    set updatetime=0
-    call VSCodeNotify('nvim-theme.visual')
-endfunction
-
-vnoremap <silent> <expr> <SID>SetCursorLineNrColorVisual SetCursorLineNrColorVisual()
-nnoremap <silent> <script> v v<SID>SetCursorLineNrColorVisual
-nnoremap <silent> <script> V V<SID>SetCursorLineNrColorVisual
-nnoremap <silent> <script> <C-v> <C-v><SID>SetCursorLineNrColorVisual
-
-
 augroup CursorLineNrColorSwap
     autocmd!
+    autocmd ModeChanged *:[vV\x16]* call VSCodeNotify('nvim-theme.visual')
+    autocmd ModeChanged *:[R]* call VSCodeNotify('nvim-theme.replace')
     autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
     autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
     autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
 augroup END
 
 ```
-
-# Known Issues
-
-- Visual mode puts the cursor to the start of the line. Negligable as following command is almost always to move the cursor
-
 # TODO
 
 - search mode
-- replace mode
 
 ---

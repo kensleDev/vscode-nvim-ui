@@ -2,11 +2,11 @@
   "name": "nvim-ui-modifier",
   "displayName": "NeoVim Ui Modifier",
   "description": "Change theme accent colors by changing NVim modes",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "publisher": "JulianIaquinandi",
   "icon": "assets/logo.png",
   "repository": {
-    "url": "https://github.com/kensleDev/nvim-theme-modifier"
+    "url": "https://github.com/kensleDev/vscode-nvim-ui"
   },
   "engines": {
     "vscode": "^1.48.0"
@@ -39,7 +39,37 @@
         "command": "nvim-theme.replace",
         "title": "NVIM Replace"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "nvim-ui",
+      "properties": {
+        "nvim-ui.nvimColorNormal": {
+            "type": "string",
+            "default": "#ffc600",
+            "description": "Normal mode color"
+          },
+          "nvim-ui.nvimColorInsert": {
+            "type": "string",
+            "default": "#D32F2F",
+            "description": "Insert mode color"
+          },
+          "nvim-ui.nvimColorVisual": {
+            "type": "string",
+            "default": "#673AB7",
+            "description": "Visual mode color"
+          },
+          "nvim-ui.nvimColorReplace": {
+            "type": "string",
+            "default": "#000",
+            "description": "Replace mode color"
+          },
+          "nvim-ui.nvimColorCustomizationKeys": {
+            "type": "array",
+            "default": ["statusBar.background"],
+            "description": "colorCustomization keys to change when changing modes"
+          }
+      }
+    }
   },
   "scripts": {
     "lint": "eslint .",
