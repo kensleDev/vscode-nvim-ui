@@ -11,13 +11,18 @@ function getConfiguration(section = "") {
   return vscode.workspace.getConfiguration(section, resource);
 }
 
-function changeColor(extensionConfig, colorCustomizationKeys, currentColorCustomizations, color) {
+function changeColor(
+  extensionConfig,
+  colorCustomizationKeys,
+  currentColorCustomizations,
+  color
+) {
   const colorCustomizations = { ...currentColorCustomizations };
 
-  let keys;  
+  let keys;
   console.log(colorCustomizationKeys);
   if (colorCustomizationKeys) {
-    keys = colorCustomizationKeys;   
+    keys = colorCustomizationKeys;
   } else {
     keys = [
       "activityBarBadge.background",
@@ -30,7 +35,7 @@ function changeColor(extensionConfig, colorCustomizationKeys, currentColorCustom
       "peekViewTitleLabel.foreground",
       "tab.activeBorder",
       "statusBar.border",
-    ];     
+    ];
   }
 
   keys.forEach((key) => (colorCustomizations[key] = color));
@@ -46,22 +51,44 @@ function changeColor(extensionConfig, colorCustomizationKeys, currentColorCustom
 function activate(context) {
   const extensionConfig = getConfiguration("nvim-ui");
   const workbenchConfig = getConfiguration("workbench");
-  const colorCustomizationKeys = extensionConfig.get("nvimColorCustomizationKeys") || null;
-  const currentColorCustomizations = workbenchConfig.get("colorCustomizations") || {}; 
+  const colorCustomizationKeys =
+  workbenchConfig.get("nvimColorCustomizationKeys") || extensionConfig.get("nvimColorCustomizationKeys") || null;
+  const currentColorCustomizations =
+    workbenchConfig.get("colorCustomizations") || {};
   // const operationMode = workbenchConfig.get('nvimUiMode')
 
   const cmds = [
     vscode.commands.registerCommand("nvim-theme.normal", function () {
-      changeColor(workbenchConfig, colorCustomizationKeys, currentColorCustomizations, extensionConfig.get("nvimColorNormal"));
+      changeColor(
+        workbenchConfig,
+        colorCustomizationKeys,
+        currentColorCustomizations,
+        extensionConfig.get("nvimColorNormal")
+      );
     }),
     vscode.commands.registerCommand("nvim-theme.insert", function () {
-      changeColor(workbenchConfig, colorCustomizationKeys, currentColorCustomizations, extensionConfig.get("nvimColorInsert"));
+      changeColor(
+        workbenchConfig,
+        colorCustomizationKeys,
+        currentColorCustomizations,
+        extensionConfig.get("nvimColorInsert")
+      );
     }),
     vscode.commands.registerCommand("nvim-theme.visual", function () {
-      changeColor(workbenchConfig, colorCustomizationKeys, currentColorCustomizations, extensionConfig.get("nvimColorVisual"));
+      changeColor(
+        workbenchConfig,
+        colorCustomizationKeys,
+        currentColorCustomizations,
+        extensionConfig.get("nvimColorVisual")
+      );
     }),
     vscode.commands.registerCommand("nvim-theme.replace", function () {
-      changeColor(workbenchConfig, colorCustomizationKeys, currentColorCustomizations, extensionConfig.get("nvimColorReplace"));
+      changeColor(
+        workbenchConfig,
+        colorCustomizationKeys,
+        currentColorCustomizations,
+        extensionConfig.get("nvimColorReplace")
+      );
     }),
   ];
   // The command has been defined in the package.json file
