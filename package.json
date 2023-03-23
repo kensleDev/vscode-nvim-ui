@@ -5,7 +5,7 @@
   },
   "displayName": "vscode-nvim-ui",
   "description": "Change theme accent colors by changing NVim modes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.76.0"
   },
@@ -59,7 +59,7 @@
         "nvim-ui.nvimColorCustomizationKeys": {
           "type": "array",
           "default": [
-            "statusBar.background"
+            "editorCursor.foreground"
           ],
           "description": "colorCustomization keys to change when changing modes"
         }
@@ -69,10 +69,11 @@
   "scripts": {
     "build": "tsc -p ./",
     "package": "vsce package",
-    "compile": "pnpm run build && pnpm run package",
+    "compile": "yarn build && yarn package",
     "watch": "tsc -watch -p ./",
-    "pretest": "pnpm run compile && pnpm run lint",
+    "pretest": "yarn compile && yarn lint",
     "lint": "eslint src --ext ts",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
@@ -80,13 +81,15 @@
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
     "@types/vscode": "^1.76.0",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
     "@vscode/test-electron": "^2.2.3",
-    "eslint": "^8.34.0",
+    "eslint": "^8.36.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
-    "typescript": "^4.9.5"
+    "prettier": "^2.8.6",
+    "typescript": "^4.9.5",
+    "vsce": "^2.15.0"
   },
   "dependencies": {
     "zod": "^3.21.4"

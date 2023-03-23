@@ -3,38 +3,48 @@
 import * as vscode from 'vscode';
 import { commands } from './commands';
 
-import { changeColor } from './features/changeColor';
-
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
-function getConfiguration(section = "") {
+function getConfiguration(section = '') {
   const activeTextEditor = vscode.window.activeTextEditor;
   const resource = activeTextEditor ? activeTextEditor.document.uri : null;
   return vscode.workspace.getConfiguration(section, resource);
 }
 
-
-function activate(context: vscode.ExtensionContext) {
-  const extensionConfig = getConfiguration("nvim-ui");
-  const workbenchConfig = getConfiguration("workbench");
-
+function getConfig(
+  workbenchConfig: vscode.WorkspaceConfiguration,
+  extensionConfig: vscode.WorkspaceConfiguration
+) {
   const colorCustomizationKeys =
-    workbenchConfig.get("nvimColorCustomizationKeys") || extensionConfig.get("nvimColorCustomizationKeys") || null;
+    workbenchConfig.get<string[]>('nvimColorCustomizationKeys') ||
+    extensionConfig.get<string[]>('nvimColorCustomizationKeys') ||
+    [];
 
   const currentColorCustomizations =
-    workbenchConfig.get("colorCustomizations") || {};
+    workbenchConfig.get<Record<string, string>>('colorCustomizations') || {};
+
+  return { colorCustomizationKeys, currentColorCustomizations };
+}
+
+export function activate(context: vscode.ExtensionContext) {
+  const extensionConfig = getConfiguration('nvim-ui');
+  const workbenchConfig = getConfiguration('workbench');
+
+  const { colorCustomizationKeys, currentColorCustomizations } = getConfig(
+    workbenchConfig,
+    extensionConfig
+  );
 
   // const operationMode = workbenchConfig.get('nvimUiMode')
 
-  commands({ extensionConfig, workbenchConfig, colorCustomizationKeys, currentColorCustomizations }).forEach((cmd) => context.subscriptions.push(cmd));
+  commands({
+    extensionConfig,
+    workbenchConfig,
+    colorCustomizationKeys,
+    currentColorCustomizations
+  }).forEach((cmd) => context.subscriptions.push(cmd));
 }
-exports.activate = activate;
 
 // this method is called when your extension is deactivated
-function deactivate() { }
-
-module.exports = {
-  activate,
-  deactivate,
-};
+export function deactivate() {}

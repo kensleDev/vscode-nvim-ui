@@ -2,7 +2,6 @@
 
 Changes theme accents based on current NeoVim mode.
 
-
 ![Alt Text](assets/nvim4.gif)
 
 Currently works for the following modes:
@@ -20,6 +19,7 @@ Also see the [Blog Article](https://dev.to/julian_e_yak_win_andi/vscode-neovim-t
 You will need the NeoVim VScode extension installed for this to work - [Neovim Extension](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) - follow full setup before continuing
 
 # Config
+
 ### In settings.json:
 
 You can change the colors to match the theme you use:
@@ -31,32 +31,61 @@ You can change the colors to match the theme you use:
     "workbench.nvimColorReplace": "#000"
 ```
 
-By default the extension only changes the color of status bar. To change the color of other elements, add it's name to workbench.nvimColorCustomizationKeys in setings.json.
+By default the extension only changes the color of cursor. To change the color of other elements, add it's name to workbench.nvimColorCustomizationKeys in setings.json.
 
-For example, if you would like the status bar and cursor to change color, enter the following:
+For example, if you would like the active tab highlight and cursor to change color, enter the following in settings.json:
 
 ```
-    "workbench.nvimColorCustomizationKeys":  ["statusBar.background", "editorCursor.foreground"],
+    "workbench.nvimColorCustomizationKeys":  ["tab.activeBorder", "editorCursor.foreground"],
 ```
 
-Here are some other elements you may wish to change:
+Here the elements that can be updated via this plugin:
 
-"activityBarBadge.background"
-"editorCursor.foreground"
-"inputValidation.errorBorder"
-"panel.border"
-"panelTitle.activeBorder"
-"panelTitle.activeForeground"
-"peekView.border"
-"peekViewTitleLabel.foreground"
-"tab.activeBorder"
-"statusBar.border"
+activityBarBadge.background
+editorCursor.foreground
+inputValidation.errorBorder
+panel.border
+panelTitle.activeBorder
+panelTitle.activeForeground
+peekView.border
+peekViewTitleLabel.foreground
+tab.activeBorder
+statusBar.border
 
-### In Vscode Vimrc:
+### In Neovim config
 
-This will need adding to you rvimrc, it tells neovim to send a command to vscode changing the color in a hacky way
+This will need adding to you init.vim or init.lua, it tells neovim to send a command to vscode changing the color in a hacky way
 
-Make sure to restart VSCode after adding this config
+Make sure to restart VSCode after adding
+
+#### init.lua
+
+```
+vim.api.nvim_exec([[
+    " THEME CHANGER
+    function! SetCursorLineNrColorInsert(mode)
+        " Insert mode: blue
+        if a:mode == "i"
+            call VSCodeNotify('nvim-theme.insert')
+
+        " Replace mode: red
+        elseif a:mode == "r"
+            call VSCodeNotify('nvim-theme.replace')
+        endif
+    endfunction
+
+    augroup CursorLineNrColorSwap
+        autocmd!
+        autocmd ModeChanged *:[vV\x16]* call VSCodeNotify('nvim-theme.visual')
+        autocmd ModeChanged *:[R]* call VSCodeNotify('nvim-theme.replace')
+        autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
+        autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
+        autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
+    augroup END
+]], false)
+```
+
+#### init.vim
 
 ```
 " THEME CHANGER
@@ -79,35 +108,12 @@ augroup CursorLineNrColorSwap
     autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
     autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
 augroup END
-
 ```
 
-\*\* WARNING: The plugin will add / override any keys that are passed in for customization in settings.json 
+\*\* WARNING: The plugin will add / override any keys that are passed in for customization in settings.json. If uninstalling the extension you will need to remove these from your settings.json
 
 ```
 "workbench.colorCustomizations": {
-    "activityBarBadge.background": "#ffc600",
-    "editorCursor.foreground": "#ffc600",
-    "inputValidation.errorBorder": "#ffc600",
-    "panel.border": "#ffc600",
-    "panelTitle.activeBorder": "#ffc600",
-    "panelTitle.activeForeground": "#ffc600",
-    "peekView.border": "#ffc600",
-    "peekViewTitleLabel.foreground": "#ffc600",
-    "tab.activeBorder": "#ffc600",
-    "statusBar.border": "#ffc600"
+    ...keys
 }
 ```
-
-
-# TODO
-
-- search mode
-
----
-
-
-# Change log
-
-17/03 - Merged in changes from Jonathan Simon to fix issue with the cusor jumping back to the start of the line when entering visual mode
-17/03 - Updated extension.js to allow the user to set nvimColorCustomizationKeys in settings.json. Updated README.
