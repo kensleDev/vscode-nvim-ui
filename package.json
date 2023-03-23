@@ -1,26 +1,19 @@
 {
-  "name": "nvim-ui-modifier",
-  "displayName": "NeoVim Ui Modifier",
-  "description": "Change theme accent colors by changing NVim modes",
-  "version": "0.1.0",
-  "publisher": "JulianIaquinandi",
-  "icon": "assets/logo.png",
+  "name": "vscode-nvim-ui",
   "repository": {
     "url": "https://github.com/kensleDev/vscode-nvim-ui"
   },
+  "displayName": "vscode-nvim-ui",
+  "description": "Change theme accent colors by changing NVim modes",
+  "version": "0.1.0",
   "engines": {
-    "vscode": "^1.48.0"
+    "vscode": "^1.76.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:nvim-theme.normal",
-    "onCommand:nvim-theme.insert",
-    "onCommand:nvim-theme.visual",
-    "onCommand:nvim-theme.replace"
-  ],
-  "main": "./extension.js",
+  "activationEvents": [],
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
@@ -44,49 +37,58 @@
       "title": "nvim-ui",
       "properties": {
         "nvim-ui.nvimColorNormal": {
-            "type": "string",
-            "default": "#ffc600",
-            "description": "Normal mode color"
-          },
-          "nvim-ui.nvimColorInsert": {
-            "type": "string",
-            "default": "#D32F2F",
-            "description": "Insert mode color"
-          },
-          "nvim-ui.nvimColorVisual": {
-            "type": "string",
-            "default": "#673AB7",
-            "description": "Visual mode color"
-          },
-          "nvim-ui.nvimColorReplace": {
-            "type": "string",
-            "default": "#000",
-            "description": "Replace mode color"
-          },
-          "nvim-ui.nvimColorCustomizationKeys": {
-            "type": "array",
-            "default": ["statusBar.background"],
-            "description": "colorCustomization keys to change when changing modes"
-          }
+          "type": "string",
+          "default": "#ffc600",
+          "description": "Normal mode color"
+        },
+        "nvim-ui.nvimColorInsert": {
+          "type": "string",
+          "default": "#D32F2F",
+          "description": "Insert mode color"
+        },
+        "nvim-ui.nvimColorVisual": {
+          "type": "string",
+          "default": "#673AB7",
+          "description": "Visual mode color"
+        },
+        "nvim-ui.nvimColorReplace": {
+          "type": "string",
+          "default": "#000",
+          "description": "Replace mode color"
+        },
+        "nvim-ui.nvimColorCustomizationKeys": {
+          "type": "array",
+          "default": [
+            "statusBar.background"
+          ],
+          "description": "colorCustomization keys to change when changing modes"
+        }
       }
     }
   },
   "scripts": {
-    "lint": "eslint .",
-    "pretest": "yarn run lint",
-    "test": "node ./test/runTest.js",
-    "release": "npx vsce package",
-    "publish": "npx vsce publish"
+    "build": "tsc -p ./",
+    "package": "vsce package",
+    "compile": "pnpm run build && pnpm run package",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.48.0",
-    "@types/glob": "^7.1.3",
-    "@types/mocha": "^8.0.0",
-    "@types/node": "^14.0.27",
-    "eslint": "^7.6.0",
-    "glob": "^7.1.6",
-    "mocha": "^8.1.3",
-    "typescript": "^4.0.2",
-    "vscode-test": "^1.4.0"
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.76.0",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "@vscode/test-electron": "^2.2.3",
+    "eslint": "^8.34.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "zod": "^3.21.4"
   }
 }
