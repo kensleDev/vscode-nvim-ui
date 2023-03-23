@@ -1,9 +1,9 @@
 {
-  "name": "vscode-nvim-ui",
+  "name": "nvim-ui-modifier",
   "repository": {
     "url": "https://github.com/kensleDev/vscode-nvim-ui"
   },
-  "displayName": "NeoVim Ui Modifier",
+  "displayName": "Neovim Ui Modifier",
   "description": "Change theme accent colors by changing NVim modes",
   "icon": "assets/logo.png",
   "version": "0.1.3",
