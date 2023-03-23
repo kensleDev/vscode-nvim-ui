@@ -13,7 +13,7 @@
   "categories": [
     "Other"
   ],
-  "publisher": "Julian Iaquinandi",
+  "publisher": "JulianIaquinandi",
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
