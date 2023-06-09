@@ -25,10 +25,10 @@ You will need the NeoVim VScode extension installed for this to work - [Neovim E
 You can change the colors to match the theme you use:
 
 ```
-    "workbench.nvimColorNormal": "#ffc600",
-    "workbench.nvimColorInsert": "#D32F2F",
-    "workbench.nvimColorVisual": "#673AB7",
-    "workbench.nvimColorReplace": "#000"
+    "nvim-theme.nvimColorNormal": "#ffc600",
+    "nvim-theme.nvimColorInsert": "#D32F2F",
+    "nvim-theme.nvimColorVisual": "#673AB7",
+    "nvim-theme.nvimColorReplace": "#000"
 ```
 
 By default the extension only changes the color of cursor. To change the color of other elements, add it's name to workbench.nvimColorCustomizationKeys in setings.json.
@@ -36,7 +36,7 @@ By default the extension only changes the color of cursor. To change the color o
 For example, if you would like the active tab highlight and cursor to change color, enter the following in settings.json:
 
 ```
-    "workbench.nvimColorCustomizationKeys":  ["tab.activeBorder", "editorCursor.foreground"],
+    "workspace.nvimColorCustomizationKeys":  ["tab.activeBorder", "editorCursor.foreground"],
 ```
 
 Here the elements that can be updated via this plugin:
