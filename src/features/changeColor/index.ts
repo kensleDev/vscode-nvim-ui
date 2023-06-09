@@ -1,7 +1,5 @@
-import * as vscode from 'vscode';
-
 export function changeColor(
-  extensionConfig: any,
+  workbenchConfig: any,
   colorCustomizationKeys: string[],
   currentColorCustomizations: Record<string, string>,
   color: string
@@ -30,6 +28,6 @@ export function changeColor(
   keys.forEach((key) => (colorCustomizations[key] = color));
 
   if (currentColorCustomizations !== colorCustomizations) {
-    extensionConfig.update('colorCustomizations', colorCustomizations, true);
+    workbenchConfig.update('colorCustomizations', colorCustomizations, true);
   }
 }
