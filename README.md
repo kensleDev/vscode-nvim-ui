@@ -81,6 +81,7 @@ vim.api.nvim_exec([[
         autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
         autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
         autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
+        autocmd ModeChanged [vV\x16]*:* call VSCodeNotify('nvim-theme.normal')
     augroup END
 ]], false)
 ```
@@ -107,6 +108,7 @@ augroup CursorLineNrColorSwap
     autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
     autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
     autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
+    autocmd ModeChanged [vV\x16]*:* call VSCodeNotify('nvim-theme.normal')
 augroup END
 ```
 
