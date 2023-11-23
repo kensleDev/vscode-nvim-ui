@@ -39,8 +39,9 @@ For example, if you would like the active tab highlight and cursor to change col
     "nvim-ui.nvimColorCustomizationKeys":  ["tab.activeBorder", "editorCursor.foreground"],
 ```
 
-Here the elements that can be updated via this plugin:
+These are some of the settings you can use with this plugin: 
 
+```
 activityBarBadge.background
 editorCursor.foreground
 inputValidation.errorBorder
@@ -51,6 +52,11 @@ peekView.border
 peekViewTitleLabel.foreground
 tab.activeBorder
 statusBar.border
+statusBar.background
+activityBar.background
+```
+
+This plugin should work with any ui setting, the above have been tested. 
 
 ### In Neovim config
 
