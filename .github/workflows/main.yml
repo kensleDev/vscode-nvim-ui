@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: 16
 
-      - run: npm ci
+      - run: yarn install
 
       # Bump the minor version
       - name: Bump Minor Version
@@ -22,15 +22,14 @@ jobs:
 
       # Create a GitHub Release
       - name: Create Release
-        id: create_release
         uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.version_bump.outputs.new-version }}
-          release_name: Release ${{ steps.version_bump.outputs.new-version }}
+          tag_name: v${{ steps.version_bump.outputs.new-version }}
+          release_name: Release v${{ steps.version_bump.outputs.new-version }}
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Publish to Open VSX Registry
       - name: Publish to Open VSX Registry
