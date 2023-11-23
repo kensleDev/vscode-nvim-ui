@@ -1,1 +1,1 @@
-{ "symbols": {}, "files": {} }
+{"symbols":{"CommandArgs":{"hasNamespace":false,"type":1,"moduleName":"commands","relativePath":"src/commands"}},"files":{"src/extension.ts":"2023-11-23T22:45:16.353Z","src/commands.ts":"2023-11-23T22:45:16.353Z","src/features/changeColor/index.ts":"2023-11-23T22:45:16.353Z"}}
