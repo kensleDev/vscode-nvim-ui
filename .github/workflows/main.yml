@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: 16
 
-      - run: npm ci
+      - run: yarn install
 
       # Bump the minor version
       - name: Bump Minor Version
