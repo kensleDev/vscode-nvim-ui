@@ -1,3 +1,13 @@
+# DEPRICATION NOTICE
+
+After careful consideration, I have decided to deprecate the vscode-nvim-ui plugin. This decision follows the discovery of more efficient solutions and a shift in my development focus.
+
+For details on this decision and alternative solutions, please refer to [Issue #14](https://github.com/kensleDev/vscode-nvim-ui/issues/14). I recommend the Apc Customize UI++ extension as a superior alternative for enhanced functionality.
+
+If the extension is working for you then feel free to continue but there will be no futher development. As pointed out in the mentioned issue, Apc Customize UI++ hooks into the Electron window where this extension is simply inserting lines into settings.json which can cause issues with other plugins that have similar functionality [such as this issue with Peacock](https://github.com/kensleDev/vscode-nvim-ui/issues/6)
+
+Thank you to everyone who has used the extension and for your support and understanding.
+
 # NeoVim Ui Modifier
 
 Changes theme accents based on current NeoVim mode.
