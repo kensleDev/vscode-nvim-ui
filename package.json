@@ -14,6 +14,10 @@
   "categories": [
     "Other"
   ],
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
   "publisher": "JulianIaquinandi",
   "activationEvents": [],
   "main": "./out/extension.js",
